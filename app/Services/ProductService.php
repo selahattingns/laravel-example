@@ -28,4 +28,13 @@ class ProductService {
     {
         return $this->productRepository->firstOrCreate($name, $category, $price, $stock);
     }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     */
+    public function find($id)
+    {
+        return $this->productRepository->find($id);
+    }
 }

@@ -30,4 +30,34 @@ class OrderRepository implements OrderInterface {
             "total" => $total,
         ]);
     }
+
+    /**
+     * @param $customerId
+     * @param $total
+     * @return mixed
+     */
+    public function create($customerId, $total){
+        return $this->model->query()->create([
+            "customer_id" => $customerId,
+            "total" => $total,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function findWithItems($id){
+        return $this->model->query()->with('items')->find($id);
+    }
+
+    /**
+     * @param $id
+     * @param $total
+     * @return int|mixed
+     */
+    public function updateWithId($id, $total)
+    {
+        return $this->model->query()->where('id', $id)->update(['total' => $total]);
+    }
 }
