@@ -15,10 +15,23 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
+            $table->unsignedTinyInteger('quantity');
             $table->unsignedFloat('unit_price');
             $table->unsignedFloat('total');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('order_id')
+                ->references('id')
+                ->on('orders')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
+
+            $table->foreign('product_id')
+                ->references('id')
+                ->on('products')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
         });
     }
 
