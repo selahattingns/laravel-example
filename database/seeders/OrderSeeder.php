@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Services\OrderItemService;
 use App\Services\OrderService;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class OrderSeeder extends Seeder
@@ -15,10 +14,10 @@ class OrderSeeder extends Seeder
     public function run(): void
     {
         /**$order = app()->make(OrderService::class)->firstOrCreate(
-            1,100
+            1,200
         );
         app()->make(OrderItemService::class)->firstOrCreate(
-            $order->id, 1, 10, 10, 100
+            $order->id, 2, 10, 20, 200
         );**/
     }
 }

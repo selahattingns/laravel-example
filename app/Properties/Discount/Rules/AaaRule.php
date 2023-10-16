@@ -16,15 +16,13 @@ class AaaRule extends RuleTypeSetting {
 
     /**
      * @param $order
-     * @return mixed
+     * @return void
      */
     public function detectDiscountAndBindRule($order)
     {
         $rules = $this->getRules();
         foreach ($rules as $rule){
-            //$this->ruleDefinition($order->id, $rule->id);
+            $this->ruleDefinition($order->id, $rule->id);
         }
-
-        return null;
     }
 }
