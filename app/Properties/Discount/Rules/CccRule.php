@@ -1,9 +1,10 @@
 <?php
 namespace App\Properties\Discount\Rules;
 
+use App\Properties\Discount\RuleInterface;
 use App\Properties\Discount\RuleTypeSetting;
 
-class CccRule extends RuleTypeSetting {
+class CccRule extends RuleTypeSetting implements RuleInterface {
 
     /**
      * @var string
@@ -13,6 +14,13 @@ class CccRule extends RuleTypeSetting {
      * @var string
      */
     protected $description = "x ID'li kategoriden y veya daha fazla ürün satın alındığında, en ucuz ürüne %z indirim yapılır.";
+
+    /**
+     * @var string[]
+     */
+    protected $ruleValues = [
+        "[1,2,20]"
+    ];
 
     /**
      * @param $order

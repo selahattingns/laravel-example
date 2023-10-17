@@ -20,7 +20,7 @@ class RuleTypeSetting {
     protected $description = "";
 
     /**
-     * @return void
+     * @return $this
      */
     public function firstOrCreateForTypeTable()
     {
@@ -29,6 +29,7 @@ class RuleTypeSetting {
         ],[
             "description" => $this->description,
         ]);
+        return $this;
     }
 
     /**
@@ -59,5 +60,21 @@ class RuleTypeSetting {
             "order_id" => $orderId,
             "rule_id" => $ruleId
         ]);
+    }
+
+    /**
+     * @return void
+     */
+    public function createRules()
+    {
+        $ruleType = $this->getRuleType();
+        if ($ruleType){
+            foreach ($this->ruleValues as $ruleValue){
+                Rule::firstOrCreate([
+                    "rule_type_id" => $ruleType->id,
+                    "rule_values" => $ruleValue
+                ]);
+            }
+        }
     }
 }

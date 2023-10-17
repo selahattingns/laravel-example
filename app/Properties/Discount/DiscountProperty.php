@@ -23,7 +23,7 @@ class DiscountProperty {
     {
         $ruleTypeNamespaces = config('rule-types')["namespaces"];
         foreach ($ruleTypeNamespaces as $ruleTypeNamespace){
-            (new $ruleTypeNamespace())->firstOrCreateForTypeTable();
+            (new $ruleTypeNamespace())->firstOrCreateForTypeTable()->createRules();
         }
     }
 }
