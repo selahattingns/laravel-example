@@ -1,7 +1,9 @@
 <?php
 namespace App\Services;
 
+use App\Exceptions\QuantityException;
 use App\Interfaces\OrderInterface;
+use Illuminate\Support\Facades\DB;
 
 class OrderService {
     /**
@@ -60,16 +62,24 @@ class OrderService {
      * @param $items
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|mixed
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws QuantityException
      */
     public function newOrder($customerId, $items)
     {
+        DB::beginTransaction();
         $total = 0;
         $order = $this->create($customerId, 0);
 
         foreach ($items as $item) {
             $product = app()->make(ProductService::class)->find($item["product_id"]);
+            if ($product->stock < $item["quantity"]){
+                DB::rollBack();
+                throw new QuantityException($product);
+            }
             if ($product){
                 $total += $product->price * $item["quantity"];
+                $product->stock -= $item["quantity"];
+                $product->save();
                 app()->make(OrderItemService::class)->firstOrCreate( $order->id, $product->id, $item["quantity"], $product->price, $product->price * $item["quantity"] );
             }
         }
@@ -77,6 +87,7 @@ class OrderService {
         $order->total = $total;
         $order->save();
 
+        DB::commit();
         return $this->findWithItems($order->id);
     }
 }

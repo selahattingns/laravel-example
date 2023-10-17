@@ -20,7 +20,7 @@ class OrderStoreRequest extends FormRequest
             "customer_id" => "required|exists:customers,id",
             "items" => "required|array",
             "items.*.product_id" => "required|exists:products,id",
-            "items.*.quantity" => "required|numeric",
+            "items.*.quantity" => "required|numeric|min:1",
         ];
     }
 
