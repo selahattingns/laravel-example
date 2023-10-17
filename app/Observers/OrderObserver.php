@@ -12,7 +12,7 @@ class OrderObserver
      */
     public function created(Order $order): void
     {
-        (new DiscountProperty())->detectDiscount($order);
+        //
     }
 
     /**
@@ -20,7 +20,7 @@ class OrderObserver
      */
     public function updated(Order $order): void
     {
-        //
+        (new DiscountProperty())->detectDiscount($order);
     }
 
     /**

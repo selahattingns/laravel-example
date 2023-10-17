@@ -1,7 +1,6 @@
 <?php
 namespace App\Properties\Discount\Rules;
 
-use App\Enumerations\ProductEnumeration;
 use App\Properties\Discount\RuleInterface;
 use App\Properties\Discount\RuleTypeSetting;
 
@@ -10,7 +9,7 @@ class BbbRule extends RuleTypeSetting implements RuleInterface {
     /**
      * @var string
      */
-    protected $type = "Bbb";
+    public $type = "Bbb";
     /**
      * @var string
      */
@@ -41,5 +40,16 @@ class BbbRule extends RuleTypeSetting implements RuleInterface {
                 }
             }
         }
+    }
+
+    /**
+     * @param $order
+     * @param $rule
+     * @param $discount
+     * @return string
+     */
+    public function setMessage($order, $rule, $discount): string
+    {
+        return $order->id . " id'li sipariş'de " . ($rule->json_rule_values[1] ?? "") . " adet ürün satın alındığı için " . ($rule->json_rule_values[2] ?? "") . " tanesi ücretsiz";
     }
 }

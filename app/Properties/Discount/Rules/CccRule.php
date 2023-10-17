@@ -9,7 +9,7 @@ class CccRule extends RuleTypeSetting implements RuleInterface {
     /**
      * @var string
      */
-    protected $type = "Ccc";
+    public $type = "Ccc";
     /**
      * @var string
      */
@@ -40,5 +40,16 @@ class CccRule extends RuleTypeSetting implements RuleInterface {
                 }
             }
         }
+    }
+
+    /**
+     * @param $order
+     * @param $rule
+     * @param $discount
+     * @return string
+     */
+    public function setMessage($order, $rule, $discount): string
+    {
+        return $order->id . " id'li sipariş'de " . ($rule->json_rule_values[1] ?? "") . " adet veya fazla ürün satın alındığı için %" . ($rule->json_rule_values[2] ?? "") . " indirim";
     }
 }

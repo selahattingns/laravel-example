@@ -11,4 +11,12 @@ interface RuleInterface {
      * @return void
      */
     public function checkForRule($order, $rule);
+
+    /**
+     * @param $order
+     * @param $rule
+     * @param $discount
+     * @return string
+     */
+    public function setMessage($order, $rule, $discount): string;
 }

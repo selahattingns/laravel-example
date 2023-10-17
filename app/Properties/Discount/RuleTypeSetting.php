@@ -9,14 +9,14 @@ class RuleTypeSetting {
     /**
      * @var string
      */
-    protected $type = "";
+    public $type = "";
     /**
      * @var string
      */
     protected $description = "";
 
     /**
-     * @var array 
+     * @var array
      */
     protected $valuesForRuleTable = [];
 
@@ -89,5 +89,22 @@ class RuleTypeSetting {
         foreach ($rules as $rule){
             $this->checkForRule($order, $rule);
         }
+    }
+
+    /**
+     * @param $order
+     * @return array|null
+     */
+    public function getDiscounts($order)
+    {
+        foreach ($this->getRules() as $rule){
+            $discounts = $order->discounts()->where('rule_id', $rule->id)->get();
+            foreach ($discounts as $discount){
+                $data[] = [
+                    "message" => $this->setMessage($order, $rule, $discount),
+                    "rule_id" => $rule->id
+                ];
+            }
+        }return $data ?? null;
     }
 }

@@ -53,6 +53,15 @@ class OrderRepository implements OrderInterface {
 
     /**
      * @param $id
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     */
+    public function find($id)
+    {
+        return $this->model->query()->find($id);
+    }
+
+    /**
+     * @param $id
      * @param $total
      * @return int|mixed
      */

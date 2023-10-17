@@ -49,6 +49,15 @@ class OrderService {
 
     /**
      * @param $id
+     * @return mixed
+     */
+    public function find($id)
+    {
+        return $this->orderRepository->find($id);
+    }
+
+    /**
+     * @param $id
      * @param $total
      * @return mixed
      */
