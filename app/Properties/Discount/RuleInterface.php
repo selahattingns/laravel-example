@@ -7,7 +7,8 @@ interface RuleInterface {
      * $this->ruleDefinition($order->id, $rule->id)
      *
      * @param $order
-     * @return mixed
+     * @param $rule
+     * @return void
      */
-    public function detectDiscountAndBindRule($order);
+    public function checkForRule($order, $rule);
 }

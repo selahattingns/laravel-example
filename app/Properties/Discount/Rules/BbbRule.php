@@ -1,6 +1,7 @@
 <?php
 namespace App\Properties\Discount\Rules;
 
+use App\Enumerations\ProductEnumeration;
 use App\Properties\Discount\RuleInterface;
 use App\Properties\Discount\RuleTypeSetting;
 
@@ -18,19 +19,27 @@ class BbbRule extends RuleTypeSetting implements RuleInterface {
     /**
      * @var string[]
      */
-    protected $ruleValues = [
+    protected $valuesForRuleTable = [
         "[2,6,1]"
     ];
 
     /**
      * @param $order
+     * @param $rule
      * @return void
      */
-    public function detectDiscountAndBindRule($order)
+    public function checkForRule($order, $rule): void
     {
-        $rules = $this->getRules();
-        foreach ($rules as $rule){
-            $this->ruleDefinition($order->id, $rule->id);
+        if (isset($rule->json_rule_values[0], $rule->json_rule_values[1])){
+            foreach ($order->items as $item){
+                /* x id li kategori */
+                if (optional($item->product)->category === $rule->json_rule_values[0]){
+                    /* y adet satın almak */
+                    if($item->quantity === $rule->json_rule_values[1]){
+                        $this->ruleDefinition($order->id, $rule->id);
+                    }
+                }
+            }
         }
     }
 }

@@ -25,4 +25,12 @@ class Rule extends Model
     {
         return $this->belongsTo(RuleType::class,'rule_type_id');
     }
+
+    /**
+     * @return array|mixed
+     */
+    public function getJsonRuleValuesAttribute()
+    {
+        return json_decode($this->rule_values) ?? [];
+    }
 }

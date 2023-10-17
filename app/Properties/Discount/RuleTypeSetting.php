@@ -7,10 +7,6 @@ use App\Models\RuleType;
 
 class RuleTypeSetting {
     /**
-     * @var
-     */
-    protected $model;
-    /**
      * @var string
      */
     protected $type = "";
@@ -18,6 +14,11 @@ class RuleTypeSetting {
      * @var string
      */
     protected $description = "";
+
+    /**
+     * @var array 
+     */
+    protected $valuesForRuleTable = [];
 
     /**
      * @return $this
@@ -69,12 +70,24 @@ class RuleTypeSetting {
     {
         $ruleType = $this->getRuleType();
         if ($ruleType){
-            foreach ($this->ruleValues as $ruleValue){
+            foreach ($this->valuesForRuleTable as $value){
                 Rule::firstOrCreate([
                     "rule_type_id" => $ruleType->id,
-                    "rule_values" => $ruleValue
+                    "rule_values" => $value
                 ]);
             }
+        }
+    }
+
+    /**
+     * @param $order
+     * @return void
+     */
+    public function detectDiscountAndBindRule($order)
+    {
+        $rules = $this->getRules();
+        foreach ($rules as $rule){
+            $this->checkForRule($order, $rule);
         }
     }
 }

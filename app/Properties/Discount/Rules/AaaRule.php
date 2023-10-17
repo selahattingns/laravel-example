@@ -18,24 +18,19 @@ class AaaRule extends RuleTypeSetting implements RuleInterface {
     /**
      * @var string[]
      */
-    protected $ruleValues = [
+    protected $valuesForRuleTable = [
         "[1000,10]",
     ];
 
     /**
      * @param $order
+     * @param $rule
      * @return void
      */
-    public function detectDiscountAndBindRule($order)
+    public function checkForRule($order, $rule): void
     {
-        /*
-         *
-         */
-        $rules = $this->getRules();
-        foreach ($rules as $rule){
-            /*
-             *
-             */
+        /* x adet ve üzeri alışveriş */
+        if (isset($rule->json_rule_values[0]) && $order->price >= $rule->json_rule_values[0]){
             $this->ruleDefinition($order->id, $rule->id);
         }
     }

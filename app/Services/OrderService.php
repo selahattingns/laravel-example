@@ -68,7 +68,7 @@ class OrderService {
 
         foreach ($items as $item) {
             $product = app()->make(ProductService::class)->find($item["product_id"]);
-            if (isset($product)){
+            if ($product){
                 $total += $product->price * $item["quantity"];
                 app()->make(OrderItemService::class)->firstOrCreate( $order->id, $product->id, $item["quantity"], $product->price, $product->price * $item["quantity"] );
             }
