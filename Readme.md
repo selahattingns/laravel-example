@@ -93,3 +93,12 @@ Calculate Discount - Example Request:
 **DB Designer - Discount Design**
 
 ![image DB Designer](projects/backend/images/dbdesigner.png)
+
+**Order Store - Request - Url: backend.test**
+
+![image Order Store](projects/backend/images/order-store.png)
+
+
+**Calculate Discount - Request - Url: backend.test**
+
+![image Order Store](projects/backend/images/calculate-discount.png)
